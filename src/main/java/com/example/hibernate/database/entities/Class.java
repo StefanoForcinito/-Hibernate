@@ -2,26 +2,29 @@ package com.example.hibernate.database.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "classes")
+@Table
 public class Class {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "title",nullable = false)
+    @Column(nullable = false)
     private String title;
-
-    @Column(name = "description", nullable = false)
+    @Column(nullable = false)
     private String description;
+    @ManyToMany(mappedBy = "classi")
+    private List<Student> studenti;
 
     public Class(){}
 
-    public Class(Long id, String title, String description) {
+    public Class(Long id, String title, String description, List<Student> studenti) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.studenti = studenti;
     }
 
     public Long getId() {
@@ -47,4 +50,13 @@ public class Class {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Student> getStudenti() {
+        return studenti;
+    }
+
+    public void setStudenti(List<Student> studenti) {
+        this.studenti = studenti;
+    }
 }
+
